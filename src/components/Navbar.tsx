@@ -4,14 +4,19 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./mode-toggle";
 import { useTheme } from "@/components/theme-provider";
+import { useEffect } from "react";
 
 const Navbar = () => {
+  const { theme } = useTheme();
   const { t, i18n } = useTranslation();
   const toggleLanguage = () => {
     const newLang = i18n.language === "en" ? "ar" : "en";
     i18n.changeLanguage(newLang);
   };
-  const { theme } = useTheme();
+
+  useEffect(() => {
+    document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
+  }, [i18n.language]);
 
   return (
     <header className="relative top-0 left-0 w-full backdrop-blur-md shadow-lg z-40 transition-all duration-300 border-b">
